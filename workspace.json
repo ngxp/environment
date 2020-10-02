@@ -1,7 +1,51 @@
 {
   "version": 1,
-  "projects": {},
+  "projects": {
+    "environment": {
+      "projectType": "library",
+      "root": "packages/environment",
+      "sourceRoot": "packages/environment/src",
+      "prefix": "ngxp",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "packages/environment/tsconfig.lib.json",
+            "project": "packages/environment/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "packages/environment/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "packages/environment/tsconfig.lib.json",
+              "packages/environment/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!packages/environment/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "packages/environment/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      }
+    }
+  },
   "cli": {
     "defaultCollection": "@nrwl/workspace"
-  }
+  },
+  "defaultProject": "environment"
 }

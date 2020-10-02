@@ -26,14 +26,27 @@
     "help": "nx help"
   },
   "private": true,
-  "dependencies": {},
+  "dependencies": {
+    "@angular/core": "^10.1.4",
+    "tslib": "^2.0.0"
+  },
   "devDependencies": {
+    "@angular-devkit/build-angular": "~0.1000.8",
+    "@angular-devkit/build-ng-packagr": "~0.1000.8",
+    "@angular/compiler": "^10.1.4",
+    "@angular/compiler-cli": "~10.0.14",
     "@nrwl/angular": "^10.2.1",
+    "@nrwl/jest": "10.2.1",
     "@nrwl/workspace": "10.2.1",
+    "@types/jest": "26.0.8",
     "@types/node": "~8.9.4",
     "dotenv": "6.2.0",
     "eslint": "6.8.0",
+    "jest": "26.2.2",
+    "jest-preset-angular": "8.3.1",
+    "ng-packagr": "^10.0.0",
     "prettier": "2.0.4",
+    "ts-jest": "26.1.4",
     "ts-node": "~7.0.0",
     "tslint": "~6.0.0",
     "typescript": "~3.9.3"
