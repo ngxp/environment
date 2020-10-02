@@ -16,6 +16,8 @@ That's why we want to build an image _once_ and use it across all stages/environ
 In the `main.ts` file of your Angular application wrap the bootstrap logic with `fetchEnvironment(...)` and add the `ENVIRONMENT` provider to the `platformBrowserDynamic` function
 
 ```ts
+import { ENVIRONMENT, fetchEnvironment } from '@ngxp/environment';
+
 fetchEnvironment().then(env => {
     if (env.production) {
         enableProdMode();
