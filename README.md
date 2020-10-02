@@ -13,7 +13,7 @@ That's why we want to build an image _once_ and use it across all stages/environ
 
 ## Usage
 
-In the `main.ts` file of your Angular application wrap the bootstrap logic with `fetchEnvironment(...)`.
+In the `main.ts` file of your Angular application wrap the bootstrap logic with `fetchEnvironment(...)` and add the `ENVIRONMENT` provider to the `platformBrowserDynamic` function
 
 ```ts
 fetchEnvironment().then(env => {
@@ -21,7 +21,12 @@ fetchEnvironment().then(env => {
         enableProdMode();
     }
 
-    platformBrowserDynamic()
+    platformBrowserDynamic([
+        {
+            provide: ENVIRONMENT,
+            useValue: env
+        }
+    ])
         .bootstrapModule(AppModule)
         .catch((err) => console.error(err));
 });
@@ -35,23 +40,7 @@ fetchEnvironment(`http://example.org/my/custom/environment.json`).then(env => {
 });
 ```
 
-In your `AppModule` import the `EnvironmentModule.forRoot()`. 
-This will provide the `ENVIRONMENT` InjectionToken inside your application for everyone to use.
-
-```ts
-import { EnvironmentModule } from '@partnerportal/environment';
-
-@NgModule({
-    imports: [
-        BrowserModule,
-        EnvironmentModule.forRoot(),
-    ],
-    declarations: [AppComponent],
-    bootstrap: [AppComponent]
-})
-export class AppModule {}
-
-```
+The environment configuration can now be used by using the `ENVIRONMENT` InjectionToken in your application.
 
 ```ts
 import { ENVIRONMENT } from '@ngxp/environment';
@@ -76,7 +65,3 @@ export class AppComponent {
 ### fetch
 
 The `fetchEnvironment` uses the `fetch` method in the background. So you might have to install `whatwg-fetch` and add `import 'whatwg-fetch'` in your `polyfills.ts`.
-
-### localStorage
-
-The loaded configuration is temporarily saved in the `localStorage`. This means it will not always be compatible with SSR, Ionic or Cordova applications where `localStorage` is not available.
