@@ -7,12 +7,16 @@ on:
             - 'v*'
 jobs:
     build:
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-latest^
+        env:
+            NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         steps:
         - uses: actions/checkout@v2
         - uses: actions/setup-node@v1
           with:
             node-version: '12.x'
+            always-auth: true
+            registry-url: 'https://registry.npmjs.org'
         - name: Install dependencies
           run: npm ci
         - name: Execute tests
@@ -25,5 +29,3 @@ jobs:
           if: startsWith(github.ref, 'refs/tags/')
           run: npm publish --access public
           working-directory: dist/packages/environment
-          env:
-            NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
